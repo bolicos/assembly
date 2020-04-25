@@ -1,0 +1,46 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: off
+  application:
+    name: service-products
+  security:
+    user:
+      name: admin
+      password: 12345
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  flyway:
+    baseline-description: << Schema Flyway >>
+    schemas: PUBLIC
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: true
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+server:
+  port: 8000
+#  compression:
+#    enabled: true
+#    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+#    min-response-size: 1024
+
+logging:
+  level:
+    root: INFO
+
+management:
+  endpoints:
+    web:
+      base-path: "/api/v1/"
+      cors:
+        allowed-origins: http://localhost:8080
+        allow-credentials: true
+        allowed-methods: GET, POST, PUT, DELETE, PATCH
