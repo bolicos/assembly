@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://172.17.0.2:5432/assembly
+    username: postgres
+    password: root
+    schemas: assembly
+  flyway:
+    baseline-description: << Schema Dev Flyway >>
+    schemas: assembly
+  h2:
+    console:
+      enabled: true
+      path: /h2
