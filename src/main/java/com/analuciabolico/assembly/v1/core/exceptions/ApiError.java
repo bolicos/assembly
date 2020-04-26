@@ -21,8 +21,8 @@ public class ApiError {
     private ApiError(Integer statusCode, String error, String messages) {
         this.statusCode = statusCode;
         this.error = error;
-        this.messages = messages == null || messages.isEmpty() ?
-                Collections.singletonList(messages) : Collections.emptyList();
+        this.messages = (messages == null || messages.isEmpty()) ?
+                Collections.emptyList() :  Collections.singletonList(messages);
     }
 
     public static ApiError fromHttpError(HttpStatus httpStatus, Exception exception) {

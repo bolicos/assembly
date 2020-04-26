@@ -2,13 +2,11 @@ package com.analuciabolico.assembly.v1.core.exceptions;
 
 import com.analuciabolico.assembly.v1.core.exceptions.model.DomainBusinessException;
 import com.analuciabolico.assembly.v1.core.exceptions.model.InvalidOperationException;
-import com.analuciabolico.assembly.v1.core.validation.GenericMessagesValidationEnum;
-import com.analuciabolico.assembly.v1.core.validation.MessageValidationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,23 +19,21 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static com.analuciabolico.assembly.v1.core.validation.GenericMessagesValidationEnum.GENERIC_ERROR;
+import static com.analuciabolico.assembly.v1.core.validation.MessageValidationProperties.getMessage;
+import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
 public class HttpErrorExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpErrorExceptionHandler.class);
 
-    private final String genericError = MessageValidationProperties.getMensagem(GenericMessagesValidationEnum.ERRO_GENERICO);
+    private final String genericError = getMessage(GENERIC_ERROR);
 
     @ResponseStatus(UNPROCESSABLE_ENTITY)
     @ExceptionHandler(DomainBusinessException.class)
     @ResponseBody
     public ApiError errorBusiness(DomainBusinessException e) {
-        LOGGER.error("ERRO DE NEGÓCIO: " + e.message, e);
+        LOGGER.error("ERRO DE NEGOCIO: " + e.message, e);
         return ApiError.fromHttpError(UNPROCESSABLE_ENTITY, e);
     }
 
@@ -45,7 +41,7 @@ public class HttpErrorExceptionHandler {
     @ExceptionHandler({EntityNotFoundException.class, EmptyResultDataAccessException.class})
     @ResponseBody
     public ApiError errorResourceNotFound(RuntimeException e) {
-        LOGGER.error("ERRO DE RECURSO NÃO ENCONTRADO: " + e.getMessage(), e);
+        LOGGER.error("ERRO DE RECURSO NAO ENCONTRADO: " + e.getMessage(), e);
         return ApiError.fromHttpError(NOT_FOUND, e);
     }
 
@@ -57,12 +53,11 @@ public class HttpErrorExceptionHandler {
         return ApiError.fromMessage(INTERNAL_SERVER_ERROR, genericError);
     }
 
-    @ResponseStatus(UNAUTHORIZED)
-    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(FORBIDDEN)
     @ResponseBody
-    public ApiError errorUnauthorized(AccessDeniedException e) {
-        LOGGER.error("ERRO DE NÃO AUTORIZADO: " + e.getMessage(), e);
-        return ApiError.fromMessage(UNAUTHORIZED, e.getMessage());
+    public ApiError errorForbidden(Exception e) {
+        LOGGER.error("ERRO DE ENDPOINT PROIBIDO: " + e.getMessage(), e);
+        return ApiError.fromMessage(FORBIDDEN, e.getMessage());
     }
 
     @ResponseStatus(BAD_REQUEST)
@@ -71,6 +66,13 @@ public class HttpErrorExceptionHandler {
     public ApiError errorInvalidOperation(InvalidOperationException e) {
         LOGGER.error("ERRO DE OPERACAO INVALIDA: " + e.getMessage(), e);
         return ApiError.fromMessage(BAD_REQUEST, e.getMessage());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseBody
+    public ApiError errorConstraints(DataIntegrityViolationException e) {
+        LOGGER.error("ERRO DE VIOLACAO DE CONSTRAINTS: " + e.getMessage(), e);
+        return ApiError.fromMessage(UNPROCESSABLE_ENTITY, e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
