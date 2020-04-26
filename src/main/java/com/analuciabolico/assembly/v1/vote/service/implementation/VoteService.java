@@ -1,5 +1,6 @@
 package com.analuciabolico.assembly.v1.vote.service.implementation;
 
+import com.analuciabolico.assembly.v1.associated.model.Associated;
 import com.analuciabolico.assembly.v1.associated.repository.AssociatedRepository;
 import com.analuciabolico.assembly.v1.core.exceptions.model.InvalidOperationException;
 import com.analuciabolico.assembly.v1.core.model.ResourceCreated;
@@ -31,13 +32,13 @@ public class VoteService implements IVoteService {
 
     @Override
     public ResourceCreated save(VoteDto voteDto) {
-        Long id = associatedRepository.findByCpf(voteDto.getCpf()).getId();
+        Associated associated = associatedRepository.findByCpf(voteDto.getCpf());
         Schedule schedule = scheduleRepository.getOne(voteDto.getSchedule());
-        Schedule schedule = scheduleRepository.get(voteDto.getSchedule());
+        boolean exists = voteRepository.findByScheduleAndAssociated(schedule, associated);
         if (schedule.getStatus() == OPEN &&
                 schedule.getEndTime().isAfter(LocalDateTime.now()) &&
-                    ) {
-            return new ResourceCreated(voteRepository.save(voteDto.convertToVote(id)).getId());
+                    exists) {
+            return new ResourceCreated(voteRepository.save(voteDto.convertToVote(associated.getId())).getId());
         } else {
             throw new InvalidOperationException(getMessage(NOT_POSSIBLE_VOTE));
         }
