@@ -8,6 +8,7 @@ import com.analuciabolico.assembly.v1.schedule.model.Schedule;
 import com.analuciabolico.assembly.v1.schedule.repository.ScheduleRepository;
 import com.analuciabolico.assembly.v1.vote.dto.VoteDto;
 import com.analuciabolico.assembly.v1.vote.enums.VoteEnum;
+import com.analuciabolico.assembly.v1.vote.model.Vote;
 import com.analuciabolico.assembly.v1.vote.repository.VoteRepository;
 import com.analuciabolico.assembly.v1.vote.service.interfaces.IVoteService;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.analuciabolico.assembly.v1.core.validation.GenericMessagesValidationEnum.NOT_POSSIBLE_VOTE;
 import static com.analuciabolico.assembly.v1.core.validation.MessageValidationProperties.getMessage;
@@ -34,10 +36,11 @@ public class VoteService implements IVoteService {
     public ResourceCreated save(VoteDto voteDto) {
         Associated associated = associatedRepository.findByCpf(voteDto.getCpf());
         Schedule schedule = scheduleRepository.getOne(voteDto.getSchedule());
-        boolean exists = voteRepository.findByScheduleAndAssociated(schedule, associated);
+        Optional<Vote> vote = voteRepository.findByScheduleAndAssociated(schedule, associated);
+        boolean notExists = vote.isEmpty();
         if (schedule.getStatus() == OPEN &&
                 schedule.getEndTime().isAfter(LocalDateTime.now()) &&
-                    exists) {
+                    notExists) {
             return new ResourceCreated(voteRepository.save(voteDto.convertToVote(associated.getId())).getId());
         } else {
             throw new InvalidOperationException(getMessage(NOT_POSSIBLE_VOTE));
