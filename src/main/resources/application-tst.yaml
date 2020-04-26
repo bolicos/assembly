@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: DATABASE_URL
+    username: DATABASE_USERNAME
+    password: DATABASE_PASSWORD
+    schema: DATABASE_SCHEMA
+  flyway:
+    baseline-description: << Schema Tst Flyway >>
+    schemas: assembly
