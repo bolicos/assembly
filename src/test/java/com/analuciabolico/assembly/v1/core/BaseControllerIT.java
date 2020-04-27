@@ -1,5 +1,6 @@
 package com.analuciabolico.assembly.v1.core;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,8 @@ public class BaseControllerIT {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper mapper;
 
 }
