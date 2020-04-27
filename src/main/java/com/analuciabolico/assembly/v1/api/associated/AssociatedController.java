@@ -1,5 +1,6 @@
 package com.analuciabolico.assembly.v1.api.associated;
 
+import com.analuciabolico.assembly.v1.core.annotations.SwaggerDocumentation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.analuciabolico.assembly.v1.associated.dto.AssociatedDto;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 
+@SwaggerDocumentation
 @Api(value = "Associated")
 @RestController
 @AllArgsConstructor

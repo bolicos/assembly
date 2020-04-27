@@ -1,5 +1,6 @@
 package com.analuciabolico.assembly.v1.api.schedule;
 
+import com.analuciabolico.assembly.v1.core.annotations.SwaggerDocumentation;
 import com.analuciabolico.assembly.v1.core.model.ResourceCreated;
 import com.analuciabolico.assembly.v1.schedule.dto.ScheduleDto;
 import com.analuciabolico.assembly.v1.schedule.dto.ScheduleResultDto;
@@ -18,7 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "Associated")
+@SwaggerDocumentation
+@Api(value = "Schedule")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/schedule")
