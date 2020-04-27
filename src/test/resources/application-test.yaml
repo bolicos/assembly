@@ -1,13 +1,20 @@
 spring:
+  jpa:
+    hibernate:
+      database-platform: org.hibernate.dialect.H2Dialect
+      ddl-auto: create-drop
   datasource:
-    url: jdbc:postgresql://172.17.0.2:5432/assembly
-    username: postgres
-    password: root
-    schemas: assembly
+    url: jdbc:h2:mem:testdb;
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   flyway:
-    baseline-description: << Schema Dev Flyway >>
-    schemas: assembly
+    url: "jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:flyway_init.sql'"
+    user: sa
+    password:
+    baseline-on-migrate: true
   h2:
     console:
       enabled: true
       path: /h2
+
