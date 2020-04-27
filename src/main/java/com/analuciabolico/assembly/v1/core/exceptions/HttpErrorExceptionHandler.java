@@ -2,6 +2,7 @@ package com.analuciabolico.assembly.v1.core.exceptions;
 
 import com.analuciabolico.assembly.v1.core.exceptions.model.DomainBusinessException;
 import com.analuciabolico.assembly.v1.core.exceptions.model.InvalidOperationException;
+import feign.FeignException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,6 +36,13 @@ public class HttpErrorExceptionHandler {
     public ApiError errorBusiness(DomainBusinessException e) {
         LOGGER.error("ERRO DE NEGOCIO: " + e.message, e);
         return ApiError.fromHttpError(UNPROCESSABLE_ENTITY, e);
+    }
+
+    @ExceptionHandler(FeignException.class)
+    @ResponseBody
+    public ResponseEntity<?> errorFeign(FeignException e) {
+        LOGGER.error("ERRO AO CHAMAR SERVIÇO VIA FEIGN: " + e.getMessage(), e);
+        return ResponseEntity.status(e.status()).build();
     }
 
     @ResponseStatus(NOT_FOUND)
