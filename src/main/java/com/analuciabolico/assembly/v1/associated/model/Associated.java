@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Table(name = "`ASSOCIATED`")
+@Table
 @Getter
 @Setter
 @Entity
