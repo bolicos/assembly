@@ -14,14 +14,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleResultEnum.DRAW;
 import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleStatusEnum.OPEN;
-import static com.analuciabolico.assembly.v1.vote.enums.VoteEnum.NOT;
-import static com.analuciabolico.assembly.v1.vote.enums.VoteEnum.YES;
 
 @Service
 @AllArgsConstructor

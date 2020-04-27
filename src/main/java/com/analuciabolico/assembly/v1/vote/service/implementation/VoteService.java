@@ -4,6 +4,7 @@ import com.analuciabolico.assembly.v1.associated.model.Associated;
 import com.analuciabolico.assembly.v1.associated.repository.AssociatedRepository;
 import com.analuciabolico.assembly.v1.core.exceptions.model.InvalidOperationException;
 import com.analuciabolico.assembly.v1.core.model.ResourceCreated;
+import com.analuciabolico.assembly.v1.core.service.facade.AssociatedVoteFacade;
 import com.analuciabolico.assembly.v1.schedule.model.Schedule;
 import com.analuciabolico.assembly.v1.schedule.repository.ScheduleRepository;
 import com.analuciabolico.assembly.v1.vote.dto.VoteDto;
@@ -31,16 +32,20 @@ public class VoteService implements IVoteService {
     private final VoteRepository voteRepository;
     private final AssociatedRepository associatedRepository;
     private final ScheduleRepository scheduleRepository;
+    private final AssociatedVoteFacade associatedVoteFacade;
 
     @Override
     public ResourceCreated save(VoteDto voteDto) {
-        Associated associated = associatedRepository.findByCpf(voteDto.getCpf());
+        String cpf = voteDto.getCpf();
+        Associated associated = associatedRepository.findByCpf(cpf);
         Schedule schedule = scheduleRepository.getOne(voteDto.getSchedule());
         Optional<Vote> vote = voteRepository.findByScheduleAndAssociated(schedule, associated);
+        boolean apiValidVote = associatedVoteFacade.associatedCanVote(cpf);
         boolean notExists = vote.isEmpty();
         if (schedule.getStatus() == OPEN &&
                 schedule.getEndTime().isAfter(LocalDateTime.now()) &&
-                    notExists) {
+                    notExists &&
+                        apiValidVote) {
             return new ResourceCreated(voteRepository.save(voteDto.convertToVote(associated.getId())).getId());
         } else {
             throw new InvalidOperationException(getMessage(NOT_POSSIBLE_VOTE));

@@ -1,6 +1,5 @@
 package com.analuciabolico.assembly.v1.config;
 
-
 import com.analuciabolico.assembly.v1.core.annotations.SwaggerDocumentation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +21,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .apis(RequestHandlerSelectors.withClassAnnotation(SwaggerDocumentation.class))
                 .build();
     }
-
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
