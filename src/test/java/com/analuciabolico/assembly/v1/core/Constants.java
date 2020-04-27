@@ -3,7 +3,7 @@ package com.analuciabolico.assembly.v1.core;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-public class Consts {
+public class Constants {
     public static final Long ONE_LONG = 1L;
     public static final String TITLE = "Pauta sobre a igualdade";
     public static final LocalDateTime LOCAL_DATE_START = LocalDateTime.of(2020, Month.APRIL,26, 15, 1, 0);

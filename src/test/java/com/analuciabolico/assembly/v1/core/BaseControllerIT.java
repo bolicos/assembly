@@ -9,9 +9,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.analuciabolico.assembly.v1.core.Tags.RUN_FAST;
+import static com.analuciabolico.assembly.v1.core.Tags.RUN_SLOW;
 
-@Tag(RUN_FAST)
+@Tag(RUN_SLOW)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
