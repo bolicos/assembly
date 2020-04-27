@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Table(name = "`VOTE`")
+@Table
 @Getter
 @Setter
 @Entity
@@ -39,7 +39,7 @@ public class Vote implements Serializable {
     @Column(nullable = false, length = 50)
     private VoteEnum valueEnum;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "FK_SCHEDULE_UID")
     private Schedule schedule;
 }

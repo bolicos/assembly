@@ -27,7 +27,7 @@ import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleStatusEnum.u
 import static com.analuciabolico.assembly.v1.vote.enums.VoteEnum.NOT;
 import static com.analuciabolico.assembly.v1.vote.enums.VoteEnum.YES;
 
-@Table(name = "`SCHEDULE`")
+@Table
 @Getter
 @Setter
 @Entity
@@ -59,7 +59,7 @@ public class Schedule implements Serializable {
 
     private LocalDateTime endTime;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schedule")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schedule", fetch = FetchType.EAGER)
     private Set<Vote> votes;
 
     private Long durationEstimate;
