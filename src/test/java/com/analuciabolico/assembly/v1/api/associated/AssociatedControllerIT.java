@@ -10,7 +10,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
-import static com.analuciabolico.assembly.v1.core.Constants.*;
+import static com.analuciabolico.assembly.v1.core.Constants.INVALID_ID;
+import static com.analuciabolico.assembly.v1.core.Constants.NAME;
+import static com.analuciabolico.assembly.v1.core.Constants.NONEXISTENT_ID;
+import static com.analuciabolico.assembly.v1.core.Constants.ONE_LONG;
+import static com.analuciabolico.assembly.v1.core.Constants.VALID_CPF;
 import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.INSERT_ASSOCIATED;
 import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.REMOVE_ASSOCIATED;
 import static org.hamcrest.Matchers.containsString;
@@ -28,17 +32,17 @@ class AssociatedControllerIT extends BaseControllerIT {
 
     @Test
     @SqlGroup({
-            @Sql(scripts = { REMOVE_ASSOCIATED }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
-            @Sql(scripts = { INSERT_ASSOCIATED }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
-            @Sql(scripts = { REMOVE_ASSOCIATED }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+            @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+            @Sql(scripts = {INSERT_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+            @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
     @DisplayName("Find Associated By Id")
     void findAssociatedById() throws Exception {
         mockMvc.perform(get("/api/v1/associated/" + ONE_LONG))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.name", containsString (NAME)))
-                .andExpect(jsonPath("$.cpf", containsString (VALID_CPF)));
+                .andExpect(jsonPath("$.name", containsString(NAME)))
+                .andExpect(jsonPath("$.cpf", containsString(VALID_CPF)));
     }
 
     @Test
@@ -69,8 +73,8 @@ class AssociatedControllerIT extends BaseControllerIT {
 
     @Test
     @SqlGroup({
-            @Sql(scripts = { INSERT_ASSOCIATED }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
-            @Sql(scripts = { REMOVE_ASSOCIATED }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+            @Sql(scripts = {INSERT_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+            @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
     @DisplayName("Save Associated With Existing CPF")
     void saveAssociatedExistingCpf() throws Exception {
