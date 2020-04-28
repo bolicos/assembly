@@ -11,7 +11,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -21,7 +32,10 @@ import java.util.Set;
 import static com.analuciabolico.assembly.v1.core.validation.GenericMessagesValidationEnum.RESULTS_ALREADY_CALCULATED;
 import static com.analuciabolico.assembly.v1.core.validation.GenericMessagesValidationEnum.SESSION_ALREADY_EXISTS;
 import static com.analuciabolico.assembly.v1.core.validation.MessageValidationProperties.getMessage;
-import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleResultEnum.*;
+import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleResultEnum.APPROVED;
+import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleResultEnum.DISAPPROVED;
+import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleResultEnum.DRAW;
+import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleResultEnum.UNDEFINED;
 import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleStatusEnum.CLOSE;
 import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleStatusEnum.update;
 import static com.analuciabolico.assembly.v1.vote.enums.VoteEnum.NOT;
@@ -67,6 +81,13 @@ public class Schedule implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private ScheduleResultEnum result;
+
+    public Schedule(Long oneLong, String title, String description, ScheduleStatusEnum status) {
+        this.id = oneLong;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+    }
 
     public void addSession(LocalDateTime startTime, LocalDateTime endTime) {
         if (this.startTime == null && this.endTime == null) {

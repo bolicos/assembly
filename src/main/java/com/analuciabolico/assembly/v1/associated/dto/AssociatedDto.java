@@ -18,7 +18,11 @@ public class AssociatedDto implements Serializable {
     private String name;
     private String cpf;
 
-    public Associated convertToAssociated(){
+    public AssociatedDto(String validCpf) {
+        this.cpf = validCpf;
+    }
+
+    public Associated convertToAssociated() {
         return new Associated(null, this.name, this.cpf, LocalDateTime.now());
     }
 }
