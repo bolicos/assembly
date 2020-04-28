@@ -35,7 +35,7 @@ class ScheduleControllerIT extends BaseControllerIT {
             @Sql(scripts = {REMOVE_SCHEDULE}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
 
-    @DisplayName("Find Schedule By Id")
+    @DisplayName("Find schedule by id")
     void findScheduleById() throws Exception {
         mockMvc.perform(get("/api/v1/schedules/" + ONE_LONG))
                 .andExpect(status().isOk())
@@ -45,21 +45,21 @@ class ScheduleControllerIT extends BaseControllerIT {
     }
 
     @Test
-    @DisplayName("Find Schedule Not Exist")
+    @DisplayName("Find schedule not exist")
     void findScheduleNotExist() throws Exception {
         mockMvc.perform(get("/api/v1/schedules/" + NONEXISTENT_ID))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @DisplayName("Find Schedule Invalid Parameter")
+    @DisplayName("Find schedule invalid parameter")
     void findScheduleInvalidParameter() throws Exception {
         mockMvc.perform(get("/api/v1/schedules/" + INVALID_ID))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    @DisplayName("Save Schedule")
+    @DisplayName("Save schedule")
     void saveSchedule() throws Exception {
         mockMvc.perform(post("/api/v1/schedules")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -76,7 +76,7 @@ class ScheduleControllerIT extends BaseControllerIT {
             @Sql(scripts = {INSERT_LIST_SCHEDULES}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
             @Sql(scripts = {REMOVE_SCHEDULE}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
-    @DisplayName("Find all Schedules")
+    @DisplayName("Find all schedules")
     void findAllSchedules() throws Exception {
         mockMvc.perform(get("/api/v1/schedules/"))
                 .andExpect(status().isOk())
@@ -84,5 +84,12 @@ class ScheduleControllerIT extends BaseControllerIT {
                 .andExpect(jsonPath("$.[*].id", containsInAnyOrder(LIST_INTEGER)))
                 .andExpect(jsonPath("$.[*].title", containsInAnyOrder(LIST_TITLES)))
                 .andExpect(jsonPath("$.[*].description", containsInAnyOrder(LIST_DESCRIPTIONS)));
+    }
+
+    @Test
+    @DisplayName("Find schedules not exists")
+    void findSchedulesNotExists() throws Exception {
+        mockMvc.perform(get("/api/v1/schedules/"))
+                .andExpect(status().isNoContent());
     }
 }
