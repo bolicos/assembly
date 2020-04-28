@@ -9,7 +9,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+
+import static com.analuciabolico.assembly.v1.core.validation.GenericMessagesValidationEnum.ENTITY_NOT_FOUND;
+import static com.analuciabolico.assembly.v1.core.validation.MessageValidationProperties.getMessage;
 
 @Service
 @AllArgsConstructor
@@ -24,7 +28,8 @@ public class AssociatedService implements IAssociatedService {
 
     @Override
     public Associated findById(Long id) {
-        return associatedRepository.getOne(id);
+        return associatedRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(getMessage(ENTITY_NOT_FOUND)));
     }
 
     @Override

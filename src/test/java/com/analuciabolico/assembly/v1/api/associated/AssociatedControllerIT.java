@@ -1,23 +1,23 @@
 package com.analuciabolico.assembly.v1.api.associated;
 
-import com.analuciabolico.assembly.v1.associated.dto.AssociatedDto;
 import com.analuciabolico.assembly.v1.associated.model.Associated;
 import com.analuciabolico.assembly.v1.associated.repository.AssociatedRepository;
 import com.analuciabolico.assembly.v1.core.BaseControllerIT;
-import io.micrometer.core.instrument.util.JsonUtils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.test.context.jdbc.SqlGroup;
 
 import static com.analuciabolico.assembly.v1.core.Constants.*;
+import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.INSERT_ASSOCIATED;
+import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.INSERT_LIST_ASSOCIATED;
+import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.REMOVE_ASSOCIATED;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
-import static org.springframework.test.context.jdbc.SqlConfig.TransactionMode.ISOLATED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,33 +29,85 @@ class AssociatedControllerIT extends BaseControllerIT {
     private AssociatedRepository associatedRepository;
 
     @Test
-    @Sql(
-    scripts = "/data/associated.sql",
-    executionPhase = BEFORE_TEST_METHOD,
-    config = @SqlConfig(transactionMode = ISOLATED)
-    )
-    @DisplayName("Find Associated By Id")
-    @Disabled
+    @SqlGroup({
+            @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+            @Sql(scripts = {INSERT_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+            @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    })
+    @DisplayName("Find associated by id")
     void findAssociatedById() throws Exception {
         mockMvc.perform(get("/api/v1/associated/" + ONE_LONG))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", containsString (ONE_STRING)))
-                .andExpect(jsonPath("$.name", containsString (NAME)))
-                .andExpect(jsonPath("$.cpf", containsString (VALID_CPF)))
-                .andExpect(jsonPath("$.createdAt", containsString (CREATED_AT)));
+                .andExpect(jsonPath("$.id", notNullValue()))
+                .andExpect(jsonPath("$.name", containsString(NAME)))
+                .andExpect(jsonPath("$.cpf", containsString(VALID_CPF)));
     }
 
     @Test
-    @DisplayName("Save Associated")
+    @DisplayName("Find associated not exist")
+    void findAssociatedNotExist() throws Exception {
+        mockMvc.perform(get("/api/v1/associated/" + NONEXISTENT_ID))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Find associated invalid parameter")
+    void findAssociatedInvalidParameter() throws Exception {
+        mockMvc.perform(get("/api/v1/associated/" + INVALID_ID))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Save associated")
     void saveAssociated() throws Exception {
-        AssociatedDto dto = new AssociatedDto(NAME, VALID_CPF);
         mockMvc.perform(post("/api/v1/associated")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(this.mapper.writeValueAsString(dto)))
+                .content(this.mapper.writeValueAsString(oneAssociatedDto())))
                 .andExpect(status().isCreated());
 
         Associated associated = associatedRepository.findByCpf(VALID_CPF);
-        assertEquals(dto.getCpf(), associated.getCpf());
+        assertEquals(oneAssociatedDto().getCpf(), associated.getCpf());
+    }
+
+    @Test
+    @DisplayName("Do not save an associated")
+    void DoNotsaveAnAssociated() throws Exception {
+        mockMvc.perform(post("/api/v1/associated")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(this.mapper.writeValueAsString(oneAssociatedDtoInvalid())))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    @SqlGroup({
+            @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD),
+            @Sql(scripts = {INSERT_LIST_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+            @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    })
+
+    @DisplayName("Find all associated")
+    void findAllAssociated() throws Exception {
+        mockMvc.perform(get("/api/v1/associated/"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[*].id", notNullValue()))
+                .andExpect(jsonPath("$.[*].id", containsInAnyOrder(LIST_INTEGER)))
+                .andExpect(jsonPath("$.[*].name", containsInAnyOrder(LIST_NAMES)))
+                .andExpect(jsonPath("$.[*].cpf", containsInAnyOrder(LIST_VALID_CPFS)));
+    }
+
+    @Test
+    @DisplayName("Find associated not exists")
+    void findAssociatedNotExists() throws Exception {
+        mockMvc.perform(get("/api/v1/associated/"))
+                .andExpect(status().isNoContent());
+    }
+
+    @DisplayName("Save associated with existing CPF")
+    void saveAssociatedExistingCpf() throws Exception {
+        mockMvc.perform(post("/api/v1/associated")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(this.mapper.writeValueAsString(oneAssociatedDto())))
+                .andExpect(status().isUnprocessableEntity());
     }
 
 }

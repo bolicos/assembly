@@ -1,0 +1,2 @@
+INSERT INTO SCHEDULE (UID_SCHEDULE, TITLE, DESCRIPTION, STATUS, RESULT)
+VALUES (1, 'Pauta sobre a igualdade', 'Nesta pauta iremos abordar assuntos sobre a igualdade entre as pessoas', 'CREATED', 'UNDEFINED');
