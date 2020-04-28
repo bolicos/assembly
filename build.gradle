@@ -6,19 +6,21 @@ plugins {
     id 'java'
 }
 
-group = 'com.analuciabolico'
 version = '0.0.1'
+group = 'com.analuciabolico'
+compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = JavaVersion.VERSION_14
 targetCompatibility = JavaVersion.VERSION_14
-compileJava.options.encoding = 'UTF-8'
+
 
 repositories {
     mavenCentral()
 }
 
 ext {
-    set('springCloudVersion', "Hoxton.SR3")
     set('flywayVersion', '6.3.3')
+    set('swaggerVersion', '2.9.2')
+    set('springCloudVersion', "Hoxton.SR3")
     set('springBootVersion', '2.2.6.RELEASE')
     set('snippetsDir', file("build/generated-snippets"))
 }
@@ -30,9 +32,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.boot:spring-boot-starter-activemq'
+    implementation 'org.apache.activemq:activemq-all:5.4.2'
+    implementation 'org.apache.activemq:activemq-broker'
     implementation 'org.flywaydb:flyway-core:' + flywayVersion
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:' + swaggerVersion
+    implementation 'io.springfox:springfox-swagger2:' + swaggerVersion
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
@@ -68,4 +73,15 @@ test {
 asciidoctor {
     inputs.dir snippetsDir
     dependsOn test
+}
+
+springBoot {
+    buildInfo {
+        properties {
+            artifact = 'assembly'
+            version = '0.0.1'
+            group = 'com.analuciabolico'
+            name = 'Application Spring Boot'
+        }
+    }
 }
