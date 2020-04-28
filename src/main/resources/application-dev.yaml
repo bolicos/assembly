@@ -15,6 +15,7 @@ spring:
   jms:
     listener:
       auto-startup: false
+      acknowledge-mode: auto
 
 topic: asssembly
 management:
