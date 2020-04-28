@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/assembly
+    url: jdbc:postgresql://172.17.0.2:5432/assembly
     username: postgres
     password: root
   flyway:
