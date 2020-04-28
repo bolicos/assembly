@@ -16,7 +16,7 @@ public class SwaggerConfig extends WebConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.analuciabolico.assembly.v1.api"))
                 .paths(PathSelectors.any())
                 .build();
     }
