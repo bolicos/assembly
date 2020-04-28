@@ -22,7 +22,11 @@ import java.util.Objects;
 
 import static com.analuciabolico.assembly.v1.core.validation.GenericMessagesValidationEnum.GENERIC_ERROR;
 import static com.analuciabolico.assembly.v1.core.validation.MessageValidationProperties.getMessage;
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @ControllerAdvice
 public class HttpErrorExceptionHandler {
@@ -33,8 +37,8 @@ public class HttpErrorExceptionHandler {
     @ResponseStatus(UNPROCESSABLE_ENTITY)
     @ExceptionHandler(DomainBusinessException.class)
     @ResponseBody
-    public ApiError errorBusiness(DomainBusinessException e) {
-        LOGGER.error("ERRO DE NEGOCIO: " + e.message, e);
+    public ApiError errorBusiness(Exception e) {
+        LOGGER.error("ERRO DE NEGOCIO: " + e.getMessage(), e);
         return ApiError.fromHttpError(UNPROCESSABLE_ENTITY, e);
     }
 
@@ -78,9 +82,9 @@ public class HttpErrorExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseBody
-    public ApiError errorConstraints(DataIntegrityViolationException e) {
+    public ResponseEntity<ApiError>  errorConstraints(DataIntegrityViolationException e) {
         LOGGER.error("ERRO DE VIOLACAO DE CONSTRAINTS: " + e.getMessage(), e);
-        return ApiError.fromMessage(UNPROCESSABLE_ENTITY, e.getMessage());
+    return ResponseEntity.unprocessableEntity().body(ApiError.fromHttpError(UNPROCESSABLE_ENTITY, e));
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)

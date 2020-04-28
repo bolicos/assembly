@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
-public class ApiError {
+public class ApiError implements Serializable {
     public Integer statusCode;
     public String error;
     public List<String> messages;
