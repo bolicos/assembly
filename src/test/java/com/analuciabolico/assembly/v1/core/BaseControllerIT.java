@@ -2,6 +2,8 @@ package com.analuciabolico.assembly.v1.core;
 
 import com.analuciabolico.assembly.v1.associated.dto.AssociatedDto;
 import com.analuciabolico.assembly.v1.associated.repository.AssociatedRepository;
+import com.analuciabolico.assembly.v1.schedule.dto.ScheduleDto;
+import com.analuciabolico.assembly.v1.schedule.repository.ScheduleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +14,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.analuciabolico.assembly.v1.core.Constants.DESCRIPTION;
 import static com.analuciabolico.assembly.v1.core.Constants.NAME;
+import static com.analuciabolico.assembly.v1.core.Constants.TITLE;
 import static com.analuciabolico.assembly.v1.core.Constants.VALID_CPF;
 import static com.analuciabolico.assembly.v1.core.Constants.VALID_CPF_2;
 import static com.analuciabolico.assembly.v1.core.Tags.RUN_SLOW;
@@ -32,6 +36,13 @@ public class BaseControllerIT {
 
     @Autowired
     protected AssociatedRepository associatedRepository;
+
+    @Autowired
+    protected ScheduleRepository scheduleRepository;
+
+    protected ScheduleDto oneScheduleDto() {
+        return new ScheduleDto(TITLE, DESCRIPTION);
+    }
 
     protected AssociatedDto oneAssociatedDto() {
         return new AssociatedDto(NAME, VALID_CPF);
