@@ -44,8 +44,8 @@ public class VoteService implements IVoteService {
         boolean notExists = vote.isEmpty();
         if (schedule.getStatus() == OPEN &&
                 schedule.getEndTime().isAfter(LocalDateTime.now()) &&
-                    notExists &&
-                        apiValidVote) {
+                notExists &&
+                apiValidVote) {
             return new ResourceCreated(voteRepository.save(voteDto.convertToVote(associated.getId())).getId());
         } else {
             throw new InvalidOperationException(getMessage(NOT_POSSIBLE_VOTE));

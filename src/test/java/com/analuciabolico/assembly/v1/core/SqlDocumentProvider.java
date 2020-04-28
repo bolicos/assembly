@@ -8,6 +8,7 @@ public class SqlDocumentProvider {
 
     public static final String INSERT_ASSOCIATED = "classpath:db/associated/insert.sql";
     public static final String INSERT_SCHEDULE = "classpath:db/schedule/insert.sql";
+    public static final String INSERT_SCHEDULE_VOTE = "classpath:db/schedule/insert_vote.sql";
     public static final String INSERT_VOTE = "classpath:db/vote/insert.sql";
 
     public static final String REMOVE_ASSOCIATED = "classpath:db/associated/remove.sql";

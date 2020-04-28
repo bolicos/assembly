@@ -1,0 +1,2 @@
+INSERT INTO SCHEDULE (UID_SCHEDULE, TITLE, DESCRIPTION,STATUS, RESULT, START_TIME, END_TIME)
+VALUES (1, 'Pauta', 'descrição', 'OPEN', 'UNDEFINED', current_timestamp(), dateadd('minute', 5, current_timestamp()));
