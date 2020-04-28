@@ -25,4 +25,6 @@ class ScheduleServiceTest extends BaseUnityTest {
         doReturn(oneSchedule()).when(scheduleRepository).save(any());
         assertEquals(oneResourceCreated().getId(), scheduleService.save(oneScheduleDto()).getId());
     }
+
+
 }
