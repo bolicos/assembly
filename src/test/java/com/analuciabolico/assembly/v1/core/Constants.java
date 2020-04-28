@@ -1,9 +1,12 @@
 package com.analuciabolico.assembly.v1.core;
 
+import com.analuciabolico.assembly.v1.schedule.enums.ScheduleStatusEnum;
 import com.analuciabolico.assembly.v1.vote.enums.VoteEnum;
+import com.analuciabolico.assembly.v1.vote.model.Vote;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Set;
 
 public class Constants {
 
@@ -25,6 +28,7 @@ public class Constants {
     public static final String[] LIST_DESCRIPTIONS = {"Nesta pauta iremos abordar assuntos sobre a igualdade entre as pessoas", "Nesta pauta iremos abordar assuntos sobre a diversidade", "Nesta pauta iremos abordar assuntos sobre programação"};
     public static final String TITLE = "Pauta sobre a igualdade";
     public static final String DESCRIPTION = "Nesta pauta iremos abordar assuntos sobre a igualdade entre as pessoas";
+    public static final ScheduleStatusEnum STATUS = ScheduleStatusEnum.CREATED;
     public static final LocalDateTime LOCAL_DATE_START = LocalDateTime.of(2020, Month.APRIL, 26, 15, 1, 0);
     public static final LocalDateTime LOCAL_DATE_END = LocalDateTime.of(2020, Month.APRIL, 26, 15, 2, 0);
 

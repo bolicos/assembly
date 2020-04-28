@@ -61,7 +61,7 @@ class AssociatedServiceTest extends BaseUnityTest {
     }
 
     @Test
-    @DisplayName("Test findById Exception")
+    @DisplayName("Test findById exception")
     void findByIdException() {
         doReturn(oneAssociatedOptionalEmpty()).when(associatedRepository).findById(any());
 

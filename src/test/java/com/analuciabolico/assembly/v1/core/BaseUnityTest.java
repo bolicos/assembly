@@ -35,8 +35,16 @@ public class BaseUnityTest {
         return new ScheduleDto(TITLE, DESCRIPTION);
     }
 
+    protected Optional<Schedule> oneScheduleOptional() {
+        return Optional.of(new Schedule(ONE_LONG, TITLE, DESCRIPTION, STATUS));
+    }
+
+    protected Optional<Schedule> oneScheduleOptionalEmpty() {
+        return Optional.empty();
+    }
+
     protected Schedule oneSchedule() {
-        return new Schedule(ONE_LONG,TITLE, DESCRIPTION, CREATED, null, null, null, null, UNDEFINED);
+        return new Schedule(ONE_LONG, TITLE, DESCRIPTION, CREATED, null, null, null, null, UNDEFINED);
     }
 
     protected Associated oneAssociated() {
@@ -71,4 +79,11 @@ public class BaseUnityTest {
         return List.of();
     }
 
+    protected List<Schedule> oneScheduleList() {
+        return List.of(oneSchedule());
+    }
+
+    protected List<Schedule> oneScheduleListEmpty() {
+        return List.of();
+    }
 }
