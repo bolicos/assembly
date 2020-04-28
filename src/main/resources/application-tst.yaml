@@ -7,3 +7,7 @@ spring:
   flyway:
     baseline-description: << Schema Tst Flyway >>
     schemas: assembly
+
+  activemq:
+    broker-url: CLOUDAMQP_URL
+    password: CLOUDAMQP_APIKEY

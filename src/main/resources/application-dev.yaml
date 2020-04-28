@@ -5,3 +5,19 @@ spring:
     password: root
   flyway:
     baseline-description: << Schema Dev Flyway >>
+
+  activemq:
+    broker-url: amqp://ydcbylod:jL3We0sYLQf7LPud_Sf_KPDaZQNK71nM@emu.rmq.cloudamqp.com/ydcbylod
+    password: fec5f706-b06c-4d41-a49d-16d8a99051d9
+    non-blocking-redelivery: true
+
+
+  jms:
+    listener:
+      auto-startup: false
+
+topic: asssembly
+management:
+  health:
+    jms:
+      enabled: false

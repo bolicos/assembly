@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mail implements Serializable {
+public class Message implements Serializable {
     private String to;
     private String body;
 }

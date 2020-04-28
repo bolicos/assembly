@@ -1,6 +1,7 @@
 package com.analuciabolico.assembly.v1.schedule.service.implementation;
 
 import com.analuciabolico.assembly.v1.core.model.ResourceCreated;
+import com.analuciabolico.assembly.v1.messaging.Publisher;
 import com.analuciabolico.assembly.v1.schedule.dto.ScheduleDto;
 import com.analuciabolico.assembly.v1.schedule.dto.ScheduleResultDto;
 import com.analuciabolico.assembly.v1.schedule.dto.ScheduleSessionDto;
@@ -25,6 +26,7 @@ public class ScheduleService implements IScheduleService {
 
     private final ScheduleRepository scheduleRepository;
     private final IVoteService voteService;
+    private final Publisher publisher;
 
     @Override
     public ResourceCreated save(ScheduleDto scheduleDto) {
@@ -60,6 +62,7 @@ public class ScheduleService implements IScheduleService {
         schedule.updateStatus(status.getStatus());
         schedule.updateDuration();
         scheduleRepository.save(schedule);
+        publisher.sendTopic(schedule);
         return schedule.getResult();
     }
 }
