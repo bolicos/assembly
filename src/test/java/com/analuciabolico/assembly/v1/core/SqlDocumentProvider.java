@@ -2,9 +2,9 @@ package com.analuciabolico.assembly.v1.core;
 
 public class SqlDocumentProvider {
 
+    public static final String INSERT_LIST_ASSOCIATED = "classpath:db/associated/insert_list.sql";
     public static final String INSERT_LIST_SCHEDULES = "classpath:db/schedule/insert_list.sql";
     public static final String INSERT_LIST_VOTES = "classpath:db/vote/insert_list.sql";
-
 
     public static final String INSERT_ASSOCIATED = "classpath:db/associated/insert.sql";
     public static final String INSERT_SCHEDULE = "classpath:db/schedule/insert.sql";

@@ -10,13 +10,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
-import static com.analuciabolico.assembly.v1.core.Constants.INVALID_ID;
-import static com.analuciabolico.assembly.v1.core.Constants.NAME;
-import static com.analuciabolico.assembly.v1.core.Constants.NONEXISTENT_ID;
-import static com.analuciabolico.assembly.v1.core.Constants.ONE_LONG;
-import static com.analuciabolico.assembly.v1.core.Constants.VALID_CPF;
+import static com.analuciabolico.assembly.v1.core.Constants.*;
 import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.INSERT_ASSOCIATED;
+import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.INSERT_LIST_ASSOCIATED;
 import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.REMOVE_ASSOCIATED;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,9 +80,20 @@ class AssociatedControllerIT extends BaseControllerIT {
 
     @Test
     @SqlGroup({
-            @Sql(scripts = {INSERT_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+            @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD),
+            @Sql(scripts = {INSERT_LIST_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
             @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
+    @DisplayName("Find all associated")
+    void findAllAssociated() throws Exception {
+        mockMvc.perform(get("/api/v1/associated/"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[*].id", notNullValue()))
+                .andExpect(jsonPath("$.[*].id", containsInAnyOrder(LIST_INTEGER)))
+                .andExpect(jsonPath("$.[*].name", containsInAnyOrder(LIST_NAMES)))
+                .andExpect(jsonPath("$.[*].cpf", containsInAnyOrder(LIST_VALID_CPFS)));
+    }
+
     @DisplayName("Save associated with existing CPF")
     void saveAssociatedExistingCpf() throws Exception {
         mockMvc.perform(post("/api/v1/associated")

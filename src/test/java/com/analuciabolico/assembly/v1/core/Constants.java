@@ -18,8 +18,10 @@ public class Constants {
 
     public static final String ONE_STRING = "1";
     public static final String NAME = "Ursula Burns";
-    public static final String CREATED_AT_STRING = "2020-04-26T18:55:30";
     public static final String VALID_CPF = "22191757073";
     public static final String VALID_CPF_2 = "76086743002";
-    public static final LocalDateTime CREATED_AT = LocalDateTime.of(2020, Month.APRIL,26, 15, 2, 0);
+    public static final String[] LIST_NAMES = {"Ursula Burns", "Maria Antonieta", "Afonsa Meireles"};
+    public static final String[] LIST_VALID_CPFS = {"22191757073", "67721526035", "56859521040"};
+    public static final String CREATED_AT_STRING = "2020-04-26T18:55:30";
+    public static final LocalDateTime CREATED_AT = LocalDateTime.of(2020, Month.APRIL, 26, 15, 2, 0);
 }
