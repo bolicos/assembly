@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
 import static com.analuciabolico.assembly.v1.core.Constants.DESCRIPTION;
+import static com.analuciabolico.assembly.v1.core.Constants.INVALID_ID;
 import static com.analuciabolico.assembly.v1.core.Constants.NONEXISTENT_ID;
 import static com.analuciabolico.assembly.v1.core.Constants.ONE_LONG;
 import static com.analuciabolico.assembly.v1.core.Constants.TITLE;
@@ -50,11 +51,11 @@ class ScheduleControllerIT extends BaseControllerIT {
                 .andExpect(status().isNotFound());
     }
 
-    @BeforeEach
-    void setUp() {
+    @Test
+    @DisplayName("Find Schedule Invalid Parameter")
+    void findScheduleInvalidParameter() throws Exception {
+        mockMvc.perform(get("/api/v1/schedule/" + INVALID_ID))
+                .andExpect(status().isBadRequest());
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 }
