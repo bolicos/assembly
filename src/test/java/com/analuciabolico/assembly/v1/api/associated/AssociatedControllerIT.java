@@ -84,6 +84,7 @@ class AssociatedControllerIT extends BaseControllerIT {
             @Sql(scripts = {INSERT_LIST_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
             @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
+
     @DisplayName("Find all associated")
     void findAllAssociated() throws Exception {
         mockMvc.perform(get("/api/v1/associated/"))
@@ -92,6 +93,13 @@ class AssociatedControllerIT extends BaseControllerIT {
                 .andExpect(jsonPath("$.[*].id", containsInAnyOrder(LIST_INTEGER)))
                 .andExpect(jsonPath("$.[*].name", containsInAnyOrder(LIST_NAMES)))
                 .andExpect(jsonPath("$.[*].cpf", containsInAnyOrder(LIST_VALID_CPFS)));
+    }
+
+    @Test
+    @DisplayName("Find associated not exists")
+    void findAssociatedNotExists() throws Exception {
+        mockMvc.perform(get("/api/v1/associated/"))
+                .andExpect(status().isNoContent());
     }
 
     @DisplayName("Save associated with existing CPF")
