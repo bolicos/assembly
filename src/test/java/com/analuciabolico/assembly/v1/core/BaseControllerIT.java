@@ -44,6 +44,10 @@ public class BaseControllerIT {
         return new ScheduleDto(TITLE, DESCRIPTION);
     }
 
+    protected ScheduleDto oneScheduleDtoInvalid() {
+        return new ScheduleDto(DESCRIPTION);
+    }
+
     protected AssociatedDto oneAssociatedDto() {
         return new AssociatedDto(NAME, VALID_CPF);
     }
