@@ -88,16 +88,19 @@ public class HttpErrorExceptionHandler {
     public ResponseEntity<?> errorInvalidParameter(MethodArgumentTypeMismatchException e, WebRequest request) {
         LOGGER.error("ERRO DE PARAMETRO INVALIDO NA REQUEST: " + e.getMessage(), e);
         boolean isEnum = Objects.requireNonNull(e.getRequiredType()).isEnum();
-        String nomeParametro = e.getName();
+        String parameterName = e.getName();
+        String parameterValue = Objects.requireNonNull(e.getValue()).toString();
 
-        return (isEnum && existParameterInPathVariable(request, nomeParametro)) ?
+        return (isEnum && existParameterInPathVariable(request, parameterName)) ?
                 ResponseEntity.notFound().build() :
-                ResponseEntity.badRequest().body(ApiError.fromMessage(BAD_REQUEST, e.getMessage()));
+                ResponseEntity.badRequest().body(
+                        ApiError.fromMessage(BAD_REQUEST,
+                                "Parameter `" + parameterName + "` is invalid for `" + parameterValue + "` value."));
     }
 
-    private boolean existParameterInPathVariable(WebRequest request, String nameParameter) {
+    private boolean existParameterInPathVariable(WebRequest request, String parameterName) {
         Map<?, ?> variables = (Map<?, ?>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, 0);
-        return Objects.requireNonNull(variables).containsKey(nameParameter);
+        return Objects.requireNonNull(variables).containsKey(parameterName);
     }
 
 }
