@@ -52,6 +52,11 @@ public class BaseControllerIT {
         return new AssociatedDto(NAME, VALID_CPF);
     }
 
+    protected AssociatedDto oneAssociatedDtoInvalid() {
+        return new AssociatedDto( VALID_CPF);
+    }
+
+
     protected AssociatedDto oneAssociatedDtoCpf() {
         return new AssociatedDto(NAME, VALID_CPF_2);
     }

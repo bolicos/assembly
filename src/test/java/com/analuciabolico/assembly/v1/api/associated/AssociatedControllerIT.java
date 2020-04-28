@@ -36,7 +36,7 @@ class AssociatedControllerIT extends BaseControllerIT {
             @Sql(scripts = {INSERT_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
             @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
-    @DisplayName("Find Associated By Id")
+    @DisplayName("Find associated by id")
     void findAssociatedById() throws Exception {
         mockMvc.perform(get("/api/v1/associated/" + ONE_LONG))
                 .andExpect(status().isOk())
@@ -46,21 +46,21 @@ class AssociatedControllerIT extends BaseControllerIT {
     }
 
     @Test
-    @DisplayName("Find Associated Not Exist")
+    @DisplayName("Find associated not exist")
     void findAssociatedNotExist() throws Exception {
         mockMvc.perform(get("/api/v1/associated/" + NONEXISTENT_ID))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @DisplayName("Find Associated Invalid Parameter")
+    @DisplayName("Find associated invalid parameter")
     void findAssociatedInvalidParameter() throws Exception {
         mockMvc.perform(get("/api/v1/associated/" + INVALID_ID))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    @DisplayName("Save Associated")
+    @DisplayName("Save associated")
     void saveAssociated() throws Exception {
         mockMvc.perform(post("/api/v1/associated")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -72,11 +72,20 @@ class AssociatedControllerIT extends BaseControllerIT {
     }
 
     @Test
+    @DisplayName("Do not save an associated")
+    void DoNotsaveAnAssociated() throws Exception {
+        mockMvc.perform(post("/api/v1/associated")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(this.mapper.writeValueAsString(oneAssociatedDtoInvalid())))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     @SqlGroup({
             @Sql(scripts = {INSERT_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
             @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
-    @DisplayName("Save Associated With Existing CPF")
+    @DisplayName("Save associated with existing CPF")
     void saveAssociatedExistingCpf() throws Exception {
         mockMvc.perform(post("/api/v1/associated")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
