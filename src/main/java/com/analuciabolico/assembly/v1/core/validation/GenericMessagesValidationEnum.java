@@ -16,7 +16,9 @@ public enum GenericMessagesValidationEnum {
     SESSION_STATUS_NOT_FOUND("sessionNotFound.message"),
     SESSION_STATUS_NOT_UPDATE("sessionNotUpdate.message"),
     NOT_POSSIBLE_VOTE("notPossibleVote.message"),
-    RESULTS_ALREADY_CALCULATED("resultsAlreadyCalculated.message");
+    RESULTS_ALREADY_CALCULATED("resultsAlreadyCalculated.message"),
+    ENTITY_NOT_FOUND("entityNotFound.message"),
+    ERROR_CONVERT_NUMBER("errorConvertNumber.message");
 
     private String key;
 }

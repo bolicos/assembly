@@ -18,6 +18,10 @@ public class ScheduleDto implements Serializable {
     private String title;
     private String description;
 
+    public ScheduleDto(String description) {
+        this.description= description;
+    }
+
     public Schedule convertToSchedule() {
         return new Schedule(
                 null,
