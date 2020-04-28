@@ -71,6 +71,15 @@ class ScheduleControllerIT extends BaseControllerIT {
     }
 
     @Test
+    @DisplayName("Do not save a schedule")
+    void DoNotsaveASchedule() throws Exception {
+        mockMvc.perform(post("/api/v1/schedules")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(this.mapper.writeValueAsString(oneScheduleDtoInvalid())))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     @SqlGroup({
             @Sql(scripts = {REMOVE_SCHEDULE}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
             @Sql(scripts = {INSERT_LIST_SCHEDULES}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
