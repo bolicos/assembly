@@ -1,12 +1,13 @@
 package com.analuciabolico.assembly.v1.api.schedule;
 
+import com.analuciabolico.assembly.v1.associated.model.Associated;
 import com.analuciabolico.assembly.v1.core.BaseControllerIT;
+import com.analuciabolico.assembly.v1.schedule.model.Schedule;
 import com.analuciabolico.assembly.v1.schedule.repository.ScheduleRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
@@ -15,11 +16,14 @@ import static com.analuciabolico.assembly.v1.core.Constants.INVALID_ID;
 import static com.analuciabolico.assembly.v1.core.Constants.NONEXISTENT_ID;
 import static com.analuciabolico.assembly.v1.core.Constants.ONE_LONG;
 import static com.analuciabolico.assembly.v1.core.Constants.TITLE;
+import static com.analuciabolico.assembly.v1.core.Constants.VALID_CPF;
 import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.INSERT_SCHEDULE;
 import static com.analuciabolico.assembly.v1.core.SqlDocumentProvider.REMOVE_SCHEDULE;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,4 +62,15 @@ class ScheduleControllerIT extends BaseControllerIT {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    @DisplayName("Save Schedule")
+    void saveSchedule() throws Exception {
+        mockMvc.perform(post("/api/v1/schedule")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(this.mapper.writeValueAsString(oneScheduleDto())))
+                .andExpect(status().isCreated());
+
+        Schedule schedule = scheduleRepository.findByTitle(TITLE);
+        assertEquals(oneScheduleDto().getTitle(), schedule.getTitle());
+    }
 }
