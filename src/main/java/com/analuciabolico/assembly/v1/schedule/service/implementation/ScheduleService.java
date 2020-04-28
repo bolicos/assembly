@@ -14,9 +14,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Map;
 
+import static com.analuciabolico.assembly.v1.core.validation.GenericMessagesValidationEnum.ENTITY_NOT_FOUND;
+import static com.analuciabolico.assembly.v1.core.validation.MessageValidationProperties.getMessage;
 import static com.analuciabolico.assembly.v1.schedule.enums.ScheduleStatusEnum.OPEN;
 
 @Service
@@ -33,7 +36,8 @@ public class ScheduleService implements IScheduleService {
 
     @Override
     public Schedule findById(Long id) {
-        return scheduleRepository.getOne(id);
+        return scheduleRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(getMessage(ENTITY_NOT_FOUND)));
     }
 
     @Override
