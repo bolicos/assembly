@@ -77,15 +77,7 @@ sudo docker run -d --name postgres12 -e POSTGRES_PASSWORD=root -e PGDATA=/var/li
 
 ----
 
-## Heroku
-
-https://assembly-dev.herokuapp.com/api/v1
-
-----
-
-## Swagger-ui
-
-https://assembly-dev.herokuapp.com/swagger-ui.html
+- [Wiki](https://github.com/analuciabolico/assembly/wiki/Assembly)
 
 ----
 
