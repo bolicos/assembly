@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'org.asciidoctor.convert' version '1.5.8'
     id 'org.flywaydb.flyway' version '6.3.3'
+    id 'idea'
     id 'java'
 }
 
@@ -36,6 +37,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core:' + flywayVersion
     implementation 'io.springfox:springfox-swagger-ui:' + swaggerVersion
     implementation 'io.springfox:springfox-swagger2:' + swaggerVersion
+    implementation 'org.apache.activemq:activemq-kahadb-store'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'

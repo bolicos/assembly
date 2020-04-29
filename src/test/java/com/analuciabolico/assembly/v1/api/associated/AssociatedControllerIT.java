@@ -71,7 +71,7 @@ class AssociatedControllerIT extends BaseControllerIT {
 
     @Test
     @DisplayName("Do not save an associated")
-    void DoNotsaveAnAssociated() throws Exception {
+    void doNotSaveAnAssociated() throws Exception {
         mockMvc.perform(post("/api/v1/associated")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(this.mapper.writeValueAsString(oneAssociatedDtoInvalid())))
@@ -84,7 +84,6 @@ class AssociatedControllerIT extends BaseControllerIT {
             @Sql(scripts = {INSERT_LIST_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
             @Sql(scripts = {REMOVE_ASSOCIATED}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     })
-
     @DisplayName("Find all associated")
     void findAllAssociated() throws Exception {
         mockMvc.perform(get("/api/v1/associated/"))

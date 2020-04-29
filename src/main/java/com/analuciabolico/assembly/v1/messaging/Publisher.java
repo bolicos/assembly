@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-import static com.analuciabolico.assembly.v1.messaging.Jms.ASSEMBLY;
+import static com.analuciabolico.assembly.v1.config.Jms.ASSEMBLY;
 
 @Service
 @AllArgsConstructor

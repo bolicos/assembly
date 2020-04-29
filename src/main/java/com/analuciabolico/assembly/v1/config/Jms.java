@@ -1,4 +1,4 @@
-package com.analuciabolico.assembly.v1.messaging;
+package com.analuciabolico.assembly.v1.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
