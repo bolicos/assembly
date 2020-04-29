@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
@@ -23,9 +24,12 @@ public class Jms {
 
     public static final String ASSEMBLY = "assembly";
 
+    @Value("${queue.name}")
+    private String queue;
+
     @Bean
     public Queue queue() {
-        return new ActiveMQQueue("queue");
+        return new ActiveMQQueue(queue);
     }
 
     @Bean

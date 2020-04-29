@@ -8,13 +8,16 @@ spring:
     baseline-description: << Schema Dev Flyway >>
 
   activemq:
-    broker-url: tcp://emu.rmq.cloudamqp.com:1883?queue=assembly
+    broker-url: tcp://emu.rmq.cloudamqp.com:1883
     password: jL3We0sYLQf7LPud_Sf_KPDaZQNK71nM
     user: ydcbylod:ydcbylod
 
   jms:
     listener:
       acknowledge-mode: auto
+
+queue:
+  name: queue
 
 management:
   health:

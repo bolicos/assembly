@@ -10,7 +10,7 @@ public class MessageListener {
 
     Logger log = LoggerFactory.getLogger(MessageListener.class);
 
-    @JmsListener(destination = "queue")
+    @JmsListener(destination = "${queue.name}")
     public void receive(String msg) {
         log.info(msg);
     }
