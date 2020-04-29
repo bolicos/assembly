@@ -48,7 +48,7 @@ mkdir -p docker/postgres
 sudo snap install docker
 ```
 
-Se você não tiver o snap instalado, rode esse comando no terminal:
+Se você não tiver o snap instalado, execute esse comando no terminal:
 
 ```sh
 sudo apt update
@@ -63,7 +63,17 @@ sudo docker run -d --name postgres12 -e POSTGRES_PASSWORD=root -e PGDATA=/var/li
 
 ----
 
-### Após isso é só rodar o projeto( e os testes)
+## Após isso para executar o projeto, execute esse comando
+
+```sh
+./gradlew bootRun
+```
+
+## E para rodar os testes, execute esse comando 
+
+```sh
+./gradlew test
+```
 
 ----
 
