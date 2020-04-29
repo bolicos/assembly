@@ -77,7 +77,7 @@ sudo docker run -d --name postgres12 -e POSTGRES_PASSWORD=root -e PGDATA=/var/li
 
 ----
 
-- [Wiki](https://github.com/analuciabolico)
+- [Wiki](https://github.com/analuciabolico/assembly/wiki/Assembly)
 
 ----
 
