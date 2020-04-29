@@ -37,7 +37,6 @@ dependencies {
     implementation 'org.flywaydb:flyway-core:' + flywayVersion
     implementation 'io.springfox:springfox-swagger-ui:' + swaggerVersion
     implementation 'io.springfox:springfox-swagger2:' + swaggerVersion
-    implementation 'org.apache.activemq:activemq-kahadb-store'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
@@ -83,5 +82,21 @@ springBoot {
             group = 'com.analuciabolico'
             name = 'Application Spring Boot'
         }
+    }
+}
+
+bootRun {
+    doFirst {
+        systemProperty "spring.profiles.active", "dev"
+    }
+}
+
+bootJar {
+    archiveFileName = 'assembly.jar'
+}
+
+idea {
+    module {
+        downloadSources = true
     }
 }

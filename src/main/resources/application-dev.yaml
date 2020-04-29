@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/assembly
+    url: jdbc:postgresql://localhost:5432/assembly
     username: postgres
     password: root
 
@@ -8,14 +8,12 @@ spring:
     baseline-description: << Schema Dev Flyway >>
 
   activemq:
-    broker-url: vm://ydcbylod:jL3We0sYLQf7LPud_Sf_KPDaZQNK71nM@emu.rmq.cloudamqp.com/ydcbylod
-    password: fec5f706-b06c-4d41-a49d-16d8a99051d9
-    non-blocking-redelivery: true
-
+    broker-url: tcp://emu.rmq.cloudamqp.com:1883?queue=assembly
+    password: jL3We0sYLQf7LPud_Sf_KPDaZQNK71nM
+    user: ydcbylod:ydcbylod
 
   jms:
     listener:
-      auto-startup: false
       acknowledge-mode: auto
 
 management:
