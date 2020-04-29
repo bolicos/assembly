@@ -55,10 +55,10 @@ sudo apt update
 sudo apt install snapd
 ```
 
-3. Crie e inicie o container (Substitue {user} pelo seu usuário:) :
+3. Crie e inicie o container (Substitua {user} pelo seu usuário:) :
 
 ```sh
-sudo docker run -d --name postgres12 -e POSTGRES_PASSWORD=root -e PGDATA=/var/lib/postgresql/data/pgdata -v /home/{user}/docker/postgres:/var/lib/postgresql/data postgres -h 127.0.0.1
+sudo docker run -d --name postgres12 -e POSTGRES_PASSWORD=root -e PGDATA=/var/lib/postgresql/data/pgdata -v /home/{user}/docker/postgres:/var/lib/postgresql/data postgres --add-host postgres12
 ```
 
 ----
