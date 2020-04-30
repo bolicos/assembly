@@ -22,7 +22,7 @@ O que você precisa para instalar o software e como instalá-lo:
 
 ## Configurando banco de dados local
 
- Veja o arquivo /src/main/resources/application-dev.yaml para saber qual usuário e senha será utilizado.
+ Veja o arquivo [application-dev.yml](https://github.com/analuciabolico/assembly/blob/master/src/main/resources/application-dev.yaml) para saber qual usuário e senha será utilizado.
 
 Você precisará criar um banco de dados vazio antes de iniciar a aplicação. O nome do banco padrão é assembly (veja o arquivo de configuração mencionado anteriormente). Para criá-lo, execute:
 
@@ -63,19 +63,33 @@ sudo docker run -d --name postgres12 -e POSTGRES_PASSWORD=root -e PGDATA=/var/li
 
 ----
 
-## Após isso para executar o projeto, execute esse comando
+## Após instalar e configurar as dependecias para executar o projeto, execute estes passos
 
+
+1. Abra um terminal e rode este comando para baixar o projeto:
+```sh
+git clone https://github.com/analuciabolico/assembly.git
+```
+
+2. Entre na pasta do projeto:
+```sh
+cd ./assembly
+```
+
+3. Dentro da pasta do projeto rode este comando para iniciar a aplicação:
 ```sh
 ./gradlew bootRun
 ```
 
-## E para rodar os testes, execute esse comando 
+## E para rodar os testes, execute esse comando
 
 ```sh
 ./gradlew test
 ```
 
 ----
+
+## Wiki com infos adicionais
 
 - [Wiki](https://github.com/analuciabolico/assembly/wiki/Assembly)
 
