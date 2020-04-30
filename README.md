@@ -91,7 +91,7 @@ cd ./assembly
 
 ----
 
-## Wiki com infos adicionais
+## Wiki
 
 A wiki contem informações sobre:
 - Padrões de código
