@@ -21,7 +21,7 @@ O que você precisa para instalar o software e como instalá-lo:
 
 ----
 
-## Configurando banco de dados local caso opte por instalar-lo localmente
+## Configurando banco de dados local caso opte por instala-lo localmente
 
  Veja o arquivo [application-dev.yml](https://github.com/analuciabolico/assembly/blob/master/src/main/resources/application-dev.yaml) para saber qual usuário e senha será utilizado.
 
@@ -33,7 +33,7 @@ sudo -u postgres psql -c 'CREATE DATABASE assembly'
 
 ----
 
-## Configurando banco de dados local caso opte por usar Postgres via Docker
+## Configurando banco de dados local caso opte por usar Postgres via Docker (Recomendo)
 
 Caso não queira instalar o Postgres na sua máquina, é possível utilizá-lo via Docker:
 
