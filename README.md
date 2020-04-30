@@ -6,7 +6,7 @@ No cooperativismo, cada associado possui um voto e as decisões são tomadas em 
 
 ----
 
-<img src='https://img.shields.io/github/tag/analuciabolico/assembly.svg' alt='latest semver version' /> <img src='https://img.shields.io/github/issues/analuciabolico/assembly.svg' alt='open issues badge' /> <img src='https://img.shields.io/github/issues-pr/analuciabolico/assembly.svg' alt='open pull requests badge' />
+![Java CI with Gradle](https://github.com/analuciabolico/assembly/workflows/Java%20CI%20with%20Gradle/badge.svg) <img src='https://img.shields.io/github/tag/analuciabolico/assembly.svg' alt='latest semver version' /> <img src='https://img.shields.io/github/issues/analuciabolico/assembly.svg' alt='open issues badge' /> <img src='https://img.shields.io/github/issues-pr/analuciabolico/assembly.svg' alt='open pull requests badge' />
 
 ## Dependências
 
