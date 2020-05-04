@@ -18,7 +18,7 @@ public interface IScheduleService {
 
     List<Schedule> findAll(Sort sort);
 
-    Schedule session(ScheduleSessionDto scheduleSessionDto, Long id);
+    Schedule session(ScheduleSessionDto scheduleSessionDto, Long id) throws InterruptedException;
 
     ScheduleResultEnum result(ScheduleResultDto status, Long id);
 }

@@ -40,7 +40,7 @@ public class ScheduleController {
     }
 
     @PatchMapping(value = "/{id}/session", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Schedule> session(@PathVariable Long id, @RequestBody(required = false) ScheduleSessionDto schedule) {
+    public ResponseEntity<Schedule> session(@PathVariable Long id, @RequestBody(required = false) ScheduleSessionDto schedule) throws InterruptedException {
         return new ResponseEntity<>(scheduleService.session(schedule, id), HttpStatus.OK);
     }
 

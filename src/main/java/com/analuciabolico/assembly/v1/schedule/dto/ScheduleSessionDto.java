@@ -19,7 +19,6 @@ public class ScheduleSessionDto implements Serializable {
     private LocalDateTime endTime;
 
     public ScheduleSessionDto convert() {
-        this.startTime = LocalDateTime.now();
         this.endTime = endTime == null ? defaultMinute(this.startTime) : endTime;
         return this;
     }

@@ -1,6 +1,7 @@
 package com.analuciabolico.assembly.v1.schedule.service.implementation;
 
 import com.analuciabolico.assembly.v1.core.model.ResourceCreated;
+import com.analuciabolico.assembly.v1.schedule.component.thread.ThreadScheduleComponent;
 import com.analuciabolico.assembly.v1.schedule.dto.ScheduleDto;
 import com.analuciabolico.assembly.v1.schedule.dto.ScheduleResultDto;
 import com.analuciabolico.assembly.v1.schedule.dto.ScheduleSessionDto;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -46,14 +49,27 @@ public class ScheduleService implements IScheduleService {
     }
 
     @Override
-    public Schedule session(ScheduleSessionDto scheduleSessionDto, Long id) {
+    public Schedule session(ScheduleSessionDto scheduleSessionDto, Long id) throws InterruptedException {
+        LocalDateTime now = LocalDateTime.now();
         ScheduleSessionDto scheduleSession = scheduleSessionDto == null ?
-                new ScheduleSessionDto().convert() :
-                scheduleSessionDto.convert();
-        Schedule schedule = scheduleRepository.getOne(id);
+                new ScheduleSessionDto(now, null).convert() :
+                new ScheduleSessionDto(now, scheduleSessionDto.getEndTime()).convert();
+
+        Schedule schedule = findById(id);
         schedule.updateStatus(OPEN);
         schedule.addSession(scheduleSession.getStartTime(), scheduleSession.getEndTime());
-        return scheduleRepository.save(schedule);
+        scheduleRepository.save(schedule);
+
+        long duration = Math.abs(Duration.between(now, scheduleSession.getEndTime()).toMillis());
+
+        ThreadScheduleComponent runner = new ThreadScheduleComponent(id, this.scheduleRepository);
+        Thread thread = new Thread(runner);
+        thread.start();
+        thread.run();
+        Thread.sleep(duration);
+        thread.start();
+
+        return schedule;
     }
 
     @Override
