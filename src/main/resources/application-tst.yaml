@@ -5,5 +5,5 @@ spring:
     password: DATABASE_PASSWORD
     schema: DATABASE_SCHEMA
   flyway:
-    baseline-description: << Schema Tst Flyway >>
+    baseline-description: << Schema TST Flyway >>
     schemas: assembly

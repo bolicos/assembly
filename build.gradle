@@ -1,7 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'org.asciidoctor.convert' version '1.5.8'
     id 'org.flywaydb.flyway' version '6.3.3'
     id 'java'
 }
@@ -10,7 +9,6 @@ group = 'com.analuciabolico'
 version = '0.0.1'
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
-compileJava.options.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
@@ -19,8 +17,9 @@ repositories {
 ext {
     set('springCloudVersion', "Hoxton.SR3")
     set('flywayVersion', '6.3.3')
+    set('swaggerVersion', '2.9.2')
+    set('lombokVersion', '1.18.24')
     set('springBootVersion', '2.2.6.RELEASE')
-    set('snippetsDir', file("build/generated-snippets"))
 }
 
 dependencies {
@@ -31,12 +30,12 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.flywaydb:flyway-core:' + flywayVersion
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-    compileOnly 'org.projectlombok:lombok'
+    implementation ('io.springfox:springfox-swagger-ui:' + swaggerVersion)
+    implementation ('io.springfox:springfox-swagger2:' + swaggerVersion)
+    compileOnly ('org.projectlombok:lombok:' + lombokVersion)
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
-    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor ('org.projectlombok:lombok:'  + lombokVersion)
     testImplementation 'com.h2database:h2'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -61,11 +60,5 @@ configurations {
 }
 
 test {
-    outputs.dir snippetsDir
     useJUnitPlatform()
-}
-
-asciidoctor {
-    inputs.dir snippetsDir
-    dependsOn test
 }

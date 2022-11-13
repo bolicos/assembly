@@ -1,7 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres12:5432/assembly
-    username: postgres
-    password: root
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
   flyway:
-    baseline-description: << Schema Dev Flyway >>
+    baseline-description: << Schema DEV Flyway >>

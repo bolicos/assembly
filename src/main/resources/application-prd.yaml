@@ -3,7 +3,7 @@ spring:
     url: DATABASE_URL
     username: DATABASE_USERNAME
     password: DATABASE_PASSWORD
-    schemas: DATABASE_SCHEMA
+    schema: DATABASE_SCHEMA
   flyway:
-    baseline-description: << Schema Prd Flyway >>
+    baseline-description: << Schema PRD Flyway >>
     schemas: assembly
