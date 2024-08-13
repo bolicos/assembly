@@ -6,7 +6,7 @@ No cooperativismo, cada associado possui um voto e as decisões são tomadas em 
 
 ----
 
-![Java CI with Gradle](https://github.com/analuciabolico/assembly/workflows/Java%20CI%20with%20Gradle/badge.svg) <img src='https://img.shields.io/github/tag/analuciabolico/assembly.svg' alt='latest semver version' /> <img src='https://img.shields.io/github/issues/analuciabolico/assembly.svg' alt='open issues badge' /> <img src='https://img.shields.io/github/issues-pr/analuciabolico/assembly.svg' alt='open pull requests badge' />
+![Java CI with Gradle](https://github.com/bolicos/assembly/workflows/Java%20CI%20with%20Gradle/badge.svg) <img src='https://img.shields.io/github/tag/bolicos/assembly.svg' alt='latest semver version' /> <img src='https://img.shields.io/github/issues/bolicos/assembly.svg' alt='open issues badge' /> <img src='https://img.shields.io/github/issues-pr/bolicos/assembly.svg' alt='open pull requests badge' />
 
 ## Dependências
 
@@ -23,7 +23,7 @@ O que você precisa para instalar o software e como instalá-lo:
 
 ## Configurando banco de dados local caso opte por instala-lo localmente
 
- Veja o arquivo [application-dev.yml](https://github.com/analuciabolico/assembly/blob/master/src/main/resources/application-dev.yaml) para saber qual usuário e senha será utilizado.
+ Veja o arquivo [application-dev.yml](https://github.com/bolicos/assembly/blob/master/src/main/resources/application-dev.yaml) para saber qual usuário e senha será utilizado.
 
 Você precisará criar um banco de dados vazio antes de iniciar a aplicação. O nome do banco padrão é assembly (veja o arquivo de configuração mencionado anteriormente). Para criá-lo, execute:
 
@@ -69,7 +69,7 @@ sudo docker run -d --name postgres12 -e POSTGRES_PASSWORD=root -e POSTGRES_DB=as
 
 1. Abra um terminal e rode este comando para baixar o projeto:
 ```sh
-git clone https://github.com/analuciabolico/assembly.git
+git clone https://github.com/bolicos/assembly.git
 ```
 
 2. Entre na pasta do projeto:
@@ -101,11 +101,11 @@ A wiki contem informações sobre:
 
 Entre outras coisas, segue link para Home:
 
-- [Wiki](https://github.com/analuciabolico/assembly/wiki/Assembly)
+- [Wiki](https://github.com/bolicos/assembly/wiki/Assembly)
 
 ----
 
 ## Autora
 
-* **Ana Lúcia Bolico** - [GitHub](https://github.com/analuciabolico)
+* **Bolicos** - [GitHub](https://github.com/bolicos)
 
