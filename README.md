@@ -105,7 +105,7 @@ Entre outras coisas, segue link para Home:
 
 ----
 
-## Autora
+## Autor
 
 * **Bolicos** - [GitHub](https://github.com/bolicos)
 
