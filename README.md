@@ -6,7 +6,10 @@ No cooperativismo, cada associado possui um voto e as decisões são tomadas em 
 
 ----
 
-![Java CI with Gradle](https://github.com/bolicos/assembly/workflows/Java%20CI%20with%20Gradle/badge.svg) <img src='https://img.shields.io/github/tag/bolicos/assembly.svg' alt='latest semver version' /> <img src='https://img.shields.io/github/issues/bolicos/assembly.svg' alt='open issues badge' /> <img src='https://img.shields.io/github/issues-pr/bolicos/assembly.svg' alt='open pull requests badge' />
+![Java CI with Gradle](https://github.com/bolicos/assembly/workflows/Java%20CI%20with%20Gradle/badge.svg)
+<img src='https://img.shields.io/github/tag/bolicos/assembly.svg' alt='latest semver version' />
+<img src='https://img.shields.io/github/issues/bolicos/assembly.svg' alt='open issues badge' />
+<img src='https://img.shields.io/github/issues-pr/bolicos/assembly.svg' alt='open pull requests badge' />
 
 ## Dependências
 
